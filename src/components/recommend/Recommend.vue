@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slider></slider>
     <div v-for="(item, i) in recommends" :key="i">
       <a :href="item.linkUrl">
         <img class="needsclick" @load="loadImage" :src="item.picUrl">
@@ -9,11 +10,13 @@
 </template>
 
 <script>
+import Slider from 'base/slider/Slider'
 import {getRecommend} from 'api/recommend'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Recommend',
+  components: {Slider},
   data() {
     return {
       recommends: []
