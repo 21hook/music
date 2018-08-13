@@ -5,9 +5,11 @@
         <slot></slot>
       </div>
       <div class="dots">
-        <span v-for="(item, i) in [0, 1, 2, 3]"
+        <span v-for="(item, i) in dots"
               :key="i"
-              class="dot">
+              class="dot"
+              :class="{active: currentPageIndex === i}"
+        >
         </span>
       </div>
     </div>
@@ -35,12 +37,14 @@ export default {
   },
   data() {
     return {
+      dots: [],
       currentPageIndex: 0
     }
   },
   mounted() {
     setTimeout(() => {
       this._setSliderWidth()
+      this._initDots()
       this._initSlider()
 
       if (this.autoPlay) {
@@ -67,7 +71,23 @@ export default {
       }
       this.$refs.sliderGroup.style.width = width + 'px'
     },
+    _initDots() {
+      this.dots = new Array(this.children.length)
+    },
+    /*
+      循环滚动
+      array
+      -1 | 0 | 1 | 2
+           ↑
+        dot index
+
+    => element shift, one position to left or right, circularly
+      -1 | 0 | 1 | 2
+           ↑
+        dot index
+   */
     _initSlider() {
+      // extend the scroll functionality for a component using its opts(a plugin)
       this.slider = new BScroll(this.$refs.slider, {
         scrollX: true,
         scrollY: false,
@@ -86,6 +106,12 @@ export default {
         this.currentPageIndex = pageIndex
 
         if (this.autoPlay) {
+          /*
+            dot index transition(state transition):
+
+            ↓-----------↓
+            0 <-> 1 <-> 2
+           */
           this._play()
         }
       })
