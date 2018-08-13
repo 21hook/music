@@ -1,10 +1,20 @@
 <template>
-  <div>
-    <slider></slider>
-    <div v-for="(item, i) in recommends" :key="i">
-      <a :href="item.linkUrl">
-        <img class="needsclick" @load="loadImage" :src="item.picUrl">
-      </a>
+  <div class="recommend">
+    <div class="recommend-content">
+      <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
+        <slider>
+          <!-- default slot content -->
+          <div v-for="(item, i) in recommends" :key="i">
+            <a :href="item.linkUrl">
+              <img class="needsclick" :src="item.picUrl">
+            </a>
+          </div>
+        </slider>
+      </div>
+    </div>
+    <div class="recommend-list">
+      <h1 class="list-title">热门歌单列表</h1>
+      <ul></ul>
     </div>
   </div>
 </template>
@@ -16,7 +26,9 @@ import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Recommend',
-  components: {Slider},
+  components: {
+    Slider
+  },
   data() {
     return {
       recommends: []
@@ -34,6 +46,7 @@ export default {
         }
       })
     }
+    // event handlers
   }
 }
 </script>
