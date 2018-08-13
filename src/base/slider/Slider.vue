@@ -51,6 +51,25 @@ export default {
         this._play()
       }
     }, 20)
+
+    window.addEventListener('resize', () => {
+      if (!this.slider) {
+        return
+      }
+      this._setSliderWidth(true)
+      this.slider.refresh()
+    })
+  },
+  activated() {
+    if (this.autoPlay) {
+      this._play()
+    }
+  },
+  deactivated() {
+    clearTimeout(this.timer)
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer)
   },
   methods: {
     // _helperMethod # private methods in the modules
@@ -118,6 +137,14 @@ export default {
 
       this.slider.on('beforeScrollStart', () => {
         if (this.autoPlay) {
+          /*
+            scroll 1 to 2 by click(user interactions),
+            then scroll 1 to 2 again by auto-play(procedural animations)
+            => produce identical scroll animations
+
+            !! Disable procedural animations before user interactions to the animated
+            object, to produce consistent animations.
+           */
           clearTimeout(this.timer)
         }
       })
