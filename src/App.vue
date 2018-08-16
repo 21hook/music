@@ -2,8 +2,11 @@
   <div id="app">
     <m-header></m-header>
     <tab></tab>
-    <!-- component outlet -->
-    <router-view/>
+    <!-- store the dom tree for future requests(dom tree cache) -->
+    <keep-alive>
+      <!-- component outlet -->
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 

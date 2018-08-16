@@ -20,8 +20,8 @@
       - icon.styl       # icon样式
     - fonts
     - images 
-  - common              # 公用方法(# more than 1 module, used)
-  - base                # 基础组件(# a compound component, part of; Ex: components/ pages/, node_modules/antd/ )
+  - common              # 通用函数(# more than 1 module, used)
+  - base                # 基础组件(# more than 1 component, used; Ex: components/, pages/, put in node_modules/antd/)
   - components          # 组件(# components with business rules & objects)
   - router              
     - index.js          # 定义路由对象

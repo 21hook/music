@@ -8,8 +8,7 @@
         <span v-for="(item, i) in dots"
               :key="i"
               class="dot"
-              :class="{active: currentPageIndex === i}"
-        >
+              :class="{active: currentPageIndex === i}">
         </span>
       </div>
     </div>
@@ -60,12 +59,16 @@ export default {
       this.slider.refresh()
     })
   },
+  // when <keep-alive/> is actived, the hook of its dynamic components, called
   activated() {
+    console.log('activated')
     if (this.autoPlay) {
       this._play()
     }
   },
+  // when <keep-alive/> is deactivated, the hook of its dynamic components, called
   deactivated() {
+    console.log('deactivated')
     clearTimeout(this.timer)
   },
   beforeDestroy() {
@@ -167,6 +170,7 @@ export default {
 
   .slider
     min-height: 1px
+    position: relative
     .slider-group
       position: relative
       overflow: hidden

@@ -14,7 +14,17 @@
     </div>
     <div class="recommend-list">
       <h1 class="list-title">热门歌单列表</h1>
-      <ul></ul>
+      <ul>
+        <li v-for="(item, i) in discList" :key="i" class="item">
+          <div class="icon">
+            <img src="" alt="" width="60" height="60">
+          </div>
+          <div class="text">
+            <h2 class="name"></h2>
+            <p class="desc"></p>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -31,7 +41,8 @@ export default {
   },
   data() {
     return {
-      recommends: []
+      recommends: [],
+      discList: [1, 2, 3]
     }
   },
   created() {
