@@ -1,43 +1,48 @@
 <template>
   <div class="recommend">
-    <div class="recommend-content">
-      <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
-        <slider>
-          <!-- default slot content -->
-          <div v-for="(item, i) in recommends" :key="i">
-            <a :href="item.linkUrl">
-              <img class="needsclick" :src="item.picUrl">
-            </a>
-          </div>
-        </slider>
-      </div>
-      <div class="recommend-list">
-        <h1 class="list-title">热门歌单列表</h1>
-        <ul>
-          <li v-for="(item, i) in discList" :key="i" class="item">
-            <div class="icon">
-              <img :src="item.imgurl" alt="" width="60" height="60"> <!-- todo image lazy load -->
+    <scroll class="recommend-content" :data="discList">
+      <!-- slot content; the root component to be scroll -->
+      <div>
+        <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
+          <slider>
+            <!-- default slot content -->
+            <div v-for="(item, i) in recommends" :key="i">
+              <a :href="item.linkUrl">
+                <img class="needsclick" :src="item.picUrl">
+              </a>
             </div>
-            <div class="text">
-              <h2 class="name" v-html="item.creator.name"></h2>
-              <p class="desc" v-html="item.dissname"></p>
-            </div>
-          </li>
-        </ul>
+          </slider>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单列表</h1>
+          <ul>
+            <li v-for="(item, i) in discList" :key="i" class="item">
+              <div class="icon">
+                <img :src="item.imgurl" alt="" width="60" height="60"> <!-- todo image lazy load -->
+              </div>
+              <div class="text">
+                <h2 class="name" v-html="item.creator.name"></h2>
+                <p class="desc" v-html="item.dissname"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </scroll>
   </div>
 </template>
 
 <script>
 import Slider from 'base/slider/Slider'
+import Scroll from 'base/scroll/Scroll'
 import {getRecommend, getDiscList} from 'api/recommend'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Recommend',
   components: {
-    Slider
+    Slider,
+    Scroll
   },
   data() {
     return {
