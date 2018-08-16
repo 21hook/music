@@ -1,6 +1,6 @@
 <template>
   <div class="recommend">
-    <scroll class="recommend-content" :data="discList">
+    <scroll class="recommend-content" ref="scroll" :data="discList">
       <!-- slot content; the root component to be scroll -->
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
@@ -8,7 +8,7 @@
             <!-- default slot content -->
             <div v-for="(item, i) in recommends" :key="i">
               <a :href="item.linkUrl">
-                <img class="needsclick" :src="item.picUrl">
+                <img class="needsclick" :src="item.picUrl" @load="loadImage">
               </a>
             </div>
           </slider>
@@ -69,8 +69,14 @@ export default {
           this.discList = res.data.list
         }
       })
-    }
+    },
     // event handlers
+    loadImage() {
+      if (!this.checkLoaded) {
+        this.$refs.scroll.refresh()
+        this.checkLoaded = true
+      }
+    }
   }
 }
 </script>
