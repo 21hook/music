@@ -8,6 +8,7 @@
             <!-- default slot content -->
             <div v-for="(item, i) in recommends" :key="i">
               <a :href="item.linkUrl">
+                <!-- 当fastclick 跟bscroll的click事件冲突，导致无法点击； 此时增加class="needsclick"使得能够点击，这是fastclick 里的技巧 -->
                 <img class="needsclick" :src="item.picUrl" @load="loadImage">
               </a>
             </div>
@@ -18,7 +19,8 @@
           <ul>
             <li v-for="(item, i) in discList" :key="i" class="item">
               <div class="icon">
-                <img :src="item.imgurl" alt="" width="60" height="60"> <!-- todo image lazy load -->
+                <!-- load images when it is needed -->
+                <img v-lazy="item.imgurl" alt="" width="60" height="60">
               </div>
               <div class="text">
                 <h2 class="name" v-html="item.creator.name"></h2>
