@@ -61,14 +61,12 @@ export default {
   },
   // when <keep-alive/> is actived, the hook of its dynamic components, called
   activated() {
-    console.log('activated')
     if (this.autoPlay) {
       this._play()
     }
   },
   // when <keep-alive/> is deactivated, the hook of its dynamic components, called
   deactivated() {
-    console.log('deactivated')
     clearTimeout(this.timer)
   },
   beforeDestroy() {
