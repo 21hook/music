@@ -2,21 +2,27 @@
   <div class="singer">
     <!-- when data fetch correctly(data watch), render <list-view/> -->
     <list-view :data="singers"></list-view>
+    <!-- for /singer/:id; component outlet -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import SingerDetail from 'components/singer-detail/SingerDetail'
 import ListView from 'base/listview/ListView'
+import Singer from 'common/singer'
 import {getSingerList} from 'api/singer'
 import {ERR_OK} from 'api/config'
-import Singer from 'common/singer'
 
 const HOT_SINGER_LEN = 10
 const HOT_NAME = '热门'
 
 export default {
   name: 'Singer',
-  components: {ListView},
+  components: {
+    ListView,
+    SingerDetail
+  },
   data() {
     return {
       singers: []
