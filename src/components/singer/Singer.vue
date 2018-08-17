@@ -1,10 +1,12 @@
 <template>
   <div class="singer">
-    singer
+    <!-- when data fetch correctly(data watch), render <list-view/> -->
+    <list-view v-if="singers.length" :data="singers"></list-view>
   </div>
 </template>
 
 <script>
+import ListView from 'base/listview/ListView'
 import {getSingerList} from 'api/singer'
 import {ERR_OK} from 'api/config'
 import Singer from 'common/singer'
@@ -14,6 +16,7 @@ const HOT_NAME = '热门'
 
 export default {
   name: 'Singer',
+  components: {ListView},
   data() {
     return {
       singers: []
