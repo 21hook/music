@@ -2,7 +2,7 @@
   <div class="singer">
     <!-- when data fetch correctly(data watch), render <list-view/> -->
     <list-view :data="singers" @select="selectSinger"></list-view> <!-- subscribe select event -->
-    <!-- for /singer/:id; component outlet -->
+    <!-- component outlet for /singer/:id; render it here -->
     <router-view></router-view>
   </div>
 </template>

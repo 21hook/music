@@ -28,7 +28,7 @@ export default new Router({
       // route/component hashing mapping
       children: [
         {
-          path: '/:id',
+          path: ':id', // !! :id
           component: SingerDetail
         }
       ]
