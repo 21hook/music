@@ -10,6 +10,7 @@
 <script>
 import SingerDetail from 'components/singer-detail/SingerDetail'
 import ListView from 'base/listview/ListView'
+import {mapMutations} from 'vuex'
 import Singer from 'common/singer'
 import {getSingerList} from 'api/singer'
 import {ERR_OK} from 'api/config'
@@ -86,7 +87,14 @@ export default {
       this.$router.push({ // push to the history stack
         path: `/singer/${singer.id}`
       })
-    }
+
+      this.setSinger(singer) // call the mutation as a method
+    },
+    // spread the mutations of the app state
+    // establish mutation/method direct mapping
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    })
 
   }
 }
