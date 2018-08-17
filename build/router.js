@@ -23,4 +23,19 @@ apiRoutes.get('/getDiscList', (req, res) => {
   })
 })
 
+apiRoutes.post('/getPurlUrl', (req, res) => {
+  const url = 'http://ustbhuangyi.com/music/api/getPurlUrl'
+
+  // no CORS in server side
+  console.log(req.body)
+  axios.post(url, req.body,
+    // forge request headers
+    {
+      host: 'ustbhuangyi.com',
+      referer: 'http://ustbhuangyi.com/music/'
+    })
+    .then(response => res.json(response.data))
+    .catch(err => console.error(err))
+})
+
 module.exports = apiRoutes
