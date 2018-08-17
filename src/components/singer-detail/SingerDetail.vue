@@ -1,18 +1,19 @@
 <template>
     <div class="detail">
-      {{ singer.name }}
-      {{ singer.avatar }}
+      <music-list></music-list>
     </div>
 </template>
 
 <script>
+import MusicList from 'components/music-list/MusicList'
 import {mapGetters} from 'vuex'
 import {getSingerDetail} from 'api/singer'
 import {ERR_OK} from 'api/config'
-import {createSong} from 'common/song'
+import {createSong, processSongsUrl} from 'common/song'
 
 export default {
   name: 'SingerDetail',
+  components: {MusicList},
   data() {
     return {
       songs: []
@@ -38,7 +39,8 @@ export default {
 
       getSingerDetail(this.singer.id).then((res) => {
         if (res.code === ERR_OK) {
-          this.songs = this._normalizeSongs(res.data.list)
+          processSongsUrl(this._normalizeSongs(res.data.list)) // todo urls for the song list
+            .then(songs => this.songs = songs)
         }
       })
     },
