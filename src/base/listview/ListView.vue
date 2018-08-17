@@ -4,7 +4,10 @@
       <li v-for="(group, i) in data" :key="i" class="list-group">
         <h2 class="list-group-title">{{ group.title }}</h2>
         <ul>
-          <li v-for="(item, key) in group.items" :key="key" class="list-group-item">
+          <li v-for="(item, key) in group.items"
+              :key="key"
+              class="list-group-item"
+              @click="selectItem(item)">
             <img :src="item.avatar" class="avatar">
             <span class="name">{{ item.name }}</span>
           </li>
@@ -49,6 +52,11 @@ export default {
   computed: {
     shortcutList() {
       return this.data.map(group => group.title.substr(0, 1))
+    }
+  },
+  methods: {
+    selectItem(item) {
+      this.$emit('select', item) // dispatch select message type & arg
     }
   },
   watch: {

@@ -1,7 +1,7 @@
 <template>
   <div class="singer">
     <!-- when data fetch correctly(data watch), render <list-view/> -->
-    <list-view :data="singers"></list-view>
+    <list-view :data="singers" @select="selectSinger"></list-view> <!-- subscribe select event -->
     <!-- for /singer/:id; component outlet -->
     <router-view></router-view>
   </div>
@@ -81,6 +81,11 @@ export default {
         return a.title.charCodeAt(0) - b.title.charCodeAt(0)
       })
       return hot.concat(ret)
+    },
+    selectSinger(singer) {
+      this.$router.push({ // push to the history stack
+        path: `/singer/${singer.id}`
+      })
     }
 
   }
