@@ -1,7 +1,7 @@
 <template>
   <div class="singer">
     <!-- when data fetch correctly(data watch), render <list-view/> -->
-    <list-view v-if="singers.length" :data="singers"></list-view>
+    <list-view :data="singers"></list-view>
   </div>
 </template>
 

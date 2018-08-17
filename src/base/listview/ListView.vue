@@ -11,15 +11,28 @@
         </ul>
       </li>
     </ul>
+    <div class="list-shortcut">
+      <ul>
+        <li v-for="(item, i) in shortcutList" :key="i" class="item">{{ item }}</li>
+      </ul>
+    </div>
+    <!-- data doesn't fetch correctly, hide <loading/> -->
+    <div v-show="!data.length" class="loading-container">
+      <loading></loading>
+    </div>
   </scroll>
 </template>
 
 <script>
 import Scroll from 'base/scroll/Scroll'
+import Loading from 'base/loading/Loading'
 
 export default {
   name: 'ListView',
-  components: {Scroll},
+  components: {
+    Scroll,
+    Loading
+  },
   props: {
     data: {
       type: Array,
@@ -31,6 +44,15 @@ export default {
   data() {
     return {
 
+    }
+  },
+  computed: {
+    shortcutList() {
+      return this.data.map(group => group.title.substr(0, 1))
+    }
+  },
+  watch: {
+    data() { // watch props data
     }
   }
 }
