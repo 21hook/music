@@ -9,6 +9,7 @@
 import {mapGetters} from 'vuex'
 import {getSingerDetail} from 'api/singer'
 import {ERR_OK} from 'api/config'
+import {createSong} from 'common/song'
 
 export default {
   name: 'SingerDetail',
@@ -37,9 +38,22 @@ export default {
 
       getSingerDetail(this.singer.id).then((res) => {
         if (res.code === ERR_OK) {
-          this.songs = res.data
+          this.songs = this._normalizeSongs(res.data.list)
         }
       })
+    },
+    _normalizeSongs(list) {
+      let ret = []
+
+      list.forEach(item => {
+        let {musicData} = item
+
+        if (musicData.songid && musicData.albumid) {
+          ret.push(createSong(musicData))
+        }
+      })
+
+      return ret
     }
   }
 }
