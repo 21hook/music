@@ -43,7 +43,7 @@ export default {
 
       getSingerDetail(this.singer.id).then((res) => {
         if (res.code === ERR_OK) {
-          processSongsUrl(this._normalizeSongs(res.data.list)) // todo urls for the song list
+          processSongsUrl(this._normalizeSongs(res.data.list))
             .then(songs => this.songs = songs)
         }
       })
