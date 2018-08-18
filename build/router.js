@@ -23,6 +23,17 @@ apiRoutes.get('/getDiscList', (req, res) => {
   })
 })
 
+apiRoutes.get('/songList', (req, res) => {
+  // url to the server proxy 1
+  const url = 'http://ustbhuangyi.com/music/api/getCdInfo'
+
+  axios.get(url, {
+    params: req.query
+  }).then(response => {
+    res.json(response.data)
+  }).catch(err => console.error(err))
+})
+
 apiRoutes.post('/getPurlUrl', (req, res) => {
   const url = 'http://ustbhuangyi.com/music/api/getPurlUrl'
 

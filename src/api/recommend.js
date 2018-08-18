@@ -33,3 +33,20 @@ export function getDiscList() {
     params
   }).then(res => Promise.resolve(res.data)) // .then(res_data_resolved => //...)
 }
+
+export function getSongList(disstid) { // 获取歌曲列表（由推荐页热门歌单列表点击进去的歌曲数据）
+  const url = '/api/songList' // url to the server agent
+
+  const params = Object.assign({}, commonParams, {
+    disstid,
+    type: 1,
+    json: 1,
+    utf8: 1,
+    onlysong: 0,
+    platform: 'yqq',
+    hostUin: 0,
+    needNewCode: 0
+  })
+
+  return axios.get(url, {params}) // resolve or reject json response
+}
