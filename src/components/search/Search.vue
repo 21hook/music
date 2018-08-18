@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search-box-wrapper">
-      search-box
+      <input type="text" @change="onSearch">
     </div>
     <div class="shortcut-wrapper">
       <scroll class="shortcut">
@@ -27,7 +27,7 @@
       </scroll>
     </div>
     <div class="search-result">
-      <suggest></suggest>
+      <suggest :query="query"></suggest>
     </div>
     <!-- child component outlet; render it here -->
     <router-view></router-view>
@@ -48,19 +48,26 @@ export default {
   },
   data() {
     return {
-      hotKey: []
+      hotKey: [],
+      query: ''
     }
   },
   created() {
     this._getHotKey()
   },
   methods: {
+    // private methods
     _getHotKey() {
       getHotKey().then(res => {
         if (res.code === ERR_OK) {
           this.hotKey = res.data.hotkey.slice(0, 10)
         }
       })
+    },
+    // event handler
+    onSearch(e) {
+      console.log(e)
+      this.query = e.target.value
     }
   }
 }

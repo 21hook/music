@@ -49,4 +49,16 @@ apiRoutes.post('/getPurlUrl', (req, res) => {
     .catch(err => console.error(err))
 })
 
+apiRoutes.get('/search', (req, res) => {
+  // url to server proxy 1
+  const url = 'http://ustbhuangyi.com/music/api/search'
+
+  axios.get(url, {
+    params: req.query
+  }).then(response => {
+    res.set('Content-Type', 'application/jsonp');
+    res.send(response.data)
+  }).catch(err => console.error(err))
+})
+
 module.exports = apiRoutes

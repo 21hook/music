@@ -12,9 +12,78 @@
 </template>
 
 <script>
+import {search} from 'api/search'
+import {ERR_OK} from 'api/config'
+import {createSong, processSongsUrl} from 'common/song'
+
+const TYPE_SINGER = 'singer'
+const perpage = 20
+
 export default {
   name: 'Suggest',
+  props: {
+    query: {
+      type: String,
+      default: ''
+    },
+    showSinger: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {
+      page: 1,
+      pullup: true, // 表示需要上拉刷新
+      beforeScroll: true,
+      hasMore: true, // 还有更多
+      result: [] // 搜索结果
+    }
+  },
   methods: {
+    // private mehtods
+    _search() {
+      this.page = 1
+      this.hasMore = true
+
+      search(this.query, this.page, this.showSinger, perpage).then(res => {
+        if (res.code === ERR_OK) {
+          processSongsUrl(this._genResult(res.data))
+            .then(songs => this.result = songs)
+          this._checkMore(res.data)
+        }
+      })
+    },
+    _genResult(data) { // 处理结果数据
+      let ret = []
+      if (data.zhida && data.zhida.singerid) { // 歌手数据
+        ret.push({...data.zhida, ...{type: TYPE_SINGER}})
+      }
+      if (data.song) {
+        ret = ret.concat(this._normalizeSongs(data.song.list))
+      }
+      return ret
+    },
+    _normalizeSongs(list) { // 数据处理，处理歌曲数据
+      let ret = []
+      list.forEach((musicData) => {
+        if (musicData.songid && musicData.albummid) {
+          ret.push(createSong(musicData))
+        }
+      })
+      return ret
+    },
+    _checkMore(data) { // 检测是否还有更多数据
+      const song = data.song
+      if (!song.list.length || (song.curnum + song.curpage * perpage) > song.totalnum) {
+        this.hasMore = false
+      }
+    }
+  },
+  watch: {
+    query(newQuery) {
+      this._search(newQuery)
+    }
   }
 }
 </script>
