@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 const apiRoutes = require('./router')
+const bodyParser = require('body-parser')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -24,6 +25,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // these devServer options should be customized in /config/index.js
   devServer: {
     setup(app) { // setup
+      app.use(bodyParser.json()) // for paring body of json type; content-type
       app.use('/api', apiRoutes) // insert as a router middleware
     },
     clientLogLevel: 'warning',

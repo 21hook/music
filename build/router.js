@@ -37,8 +37,8 @@ apiRoutes.get('/songList', (req, res) => {
 apiRoutes.post('/getPurlUrl', (req, res) => {
   const url = 'http://ustbhuangyi.com/music/api/getPurlUrl'
 
+  // must config the request body paring firstly, otherwise got undefined !!
   // no CORS in server side
-  console.log(req.body)
   axios.post(url, req.body,
     // forge request headers
     {
