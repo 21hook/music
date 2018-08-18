@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 import Slider from 'base/slider/Slider'
 import Scroll from 'base/scroll/Scroll'
 import Loading from 'base/loading/Loading'
@@ -90,7 +91,12 @@ export default {
       this.$router.push({
         path: `/recommend/${item.dissid}`
       })
-    }
+
+      this.setDisc(item)
+    },
+    ...mapMutations({
+      setDisc: 'SET_DISC'
+    })
   }
 }
 </script>

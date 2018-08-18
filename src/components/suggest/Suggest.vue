@@ -12,10 +12,6 @@
 </template>
 
 <script>
-import Singer from 'common/singer'
-
-const TYPE_SINGER = 'singer'
-
 export default {
   name: 'Suggest',
   methods: {
