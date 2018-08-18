@@ -17,7 +17,7 @@
         <div class="recommend-list">
           <h1 class="list-title">热门歌单列表</h1>
           <ul>
-            <li v-for="(item, i) in discList" :key="i" class="item">
+            <li v-for="(item, i) in discList" :key="i" class="item" @click="selectItem(item)">
               <div class="icon">
                 <!-- load images when it is needed -->
                 <img v-lazy="item.imgurl" alt="" width="60" height="60">
@@ -34,6 +34,8 @@
         <loading></loading>
       </div>
     </scroll>
+    <!-- child component outlet; render it here -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -83,6 +85,11 @@ export default {
         this.$refs.scroll.refresh()
         this.checkLoaded = true
       }
+    },
+    selectItem(item) {
+      this.$router.push({
+        path: `/recommend/${item.dissid}`
+      })
     }
   }
 }

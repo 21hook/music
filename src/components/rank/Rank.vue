@@ -1,7 +1,7 @@
 <template>
   <div class="rank">
     <ul class="toplist">
-      <li v-for="(item, i) in topList" :key="i" class="item">
+      <li v-for="(item, i) in topList" :key="i" class="item" @click="selectItem(item)">
         <div class="icon">
           <img v-lazy="item.picUrl" width="100" height="100">
         </div>
@@ -13,6 +13,8 @@
         </ul>
       </li>
     </ul>
+    <!-- child component outlet; render it here -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -31,11 +33,18 @@ export default {
     this._getTopList()
   },
   methods: {
+    // private methods
     _getTopList() {
       getTopList().then(res => {
         if (res.code === ERR_OK) {
           this.topList = res.data.topList
         }
+      })
+    },
+    // event handlers
+    selectItem(item) {
+      this.$router.push({
+        path: `/rank/${item.id}`
       })
     }
   }

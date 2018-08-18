@@ -6,9 +6,9 @@ import Singer from 'components/singer/Singer'
 import Search from 'components/search/Search'
 import Rank from 'components/rank/Rank'
 import UserCenter from 'components/user-center/UserCenter'
+import Disc from 'components/disc/Disc'
+import TopList from 'components/top-list/TopList'
 import SingerDetail from 'components/singer-detail/SingerDetail'
-import PlayerList from 'components/player-list/PlayerList'
-import AddSong from 'components/add-song/AddSong'
 
 Vue.use(Router)
 
@@ -22,9 +22,14 @@ export default new Router({
     // route/component direct mapping
     {
       path: '/recommend',
-      component: Recommend
+      component: Recommend,
+      children: [
+        {
+          path: ':id',
+          component: Disc
+        }
+      ]
     },
-    // route/component direct mapping
     {
       path: '/singer',
       component: Singer,
@@ -37,24 +42,28 @@ export default new Router({
       ]
     },
     {
-      path: '/search',
-      component: Search
+      path: '/rank',
+      component: Rank,
+      children: [
+        {
+          path: ':id',
+          component: TopList
+        }
+      ]
     },
     {
-      path: '/rank',
-      component: Rank
+      path: '/search',
+      component: Search,
+      children: [
+        {
+          path: ':id',
+          component: SingerDetail
+        }
+      ]
     },
     {
       path: '/user',
       component: UserCenter
-    },
-    {
-      path: '/player-list',
-      component: PlayerList
-    },
-    {
-      path: '/add-song',
-      component: AddSong
     }
   ]
 })

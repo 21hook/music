@@ -26,17 +26,26 @@
         </div>
       </scroll>
     </div>
+    <div class="search-result">
+      <suggest></suggest>
+    </div>
+    <!-- child component outlet; render it here -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Scroll from 'base/scroll/Scroll'
+import Suggest from 'components/suggest/Suggest'
 import {getHotKey} from 'api/search'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Search',
-  components: {Scroll},
+  components: {
+    Scroll,
+    Suggest
+  },
   data() {
     return {
       hotKey: []
