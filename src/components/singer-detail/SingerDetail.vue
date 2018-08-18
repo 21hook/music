@@ -1,5 +1,9 @@
 <template>
     <div class="detail">
+      <h1>
+        {{ singer.name }}
+        {{ singer.avatar }}
+      </h1>
       <music-list></music-list>
     </div>
 </template>

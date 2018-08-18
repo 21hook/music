@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 import {getTopList} from 'api/rank'
 import {ERR_OK} from 'api/config'
 
@@ -46,7 +47,12 @@ export default {
       this.$router.push({
         path: `/rank/${item.id}`
       })
-    }
+
+      this.setTopList(item)
+    },
+    ...mapMutations({
+      setTopList: 'SET_TOP_LIST'
+    })
   }
 }
 </script>
