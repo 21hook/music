@@ -1,5 +1,5 @@
 <template>
-    <div ref="wrapper">
+    <div ref="wrapper" class="scroll-wrapper">
       <!-- default slot; the first child component to be scrolled -->
       <slot></slot>
     </div>
@@ -51,7 +51,7 @@ export default {
         return
       }
 
-      // init the plugin on the wrapper, with the functionality opt
+      // init scroll functionality on the wrapper, with its opts
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
         click: this.click
@@ -78,8 +78,15 @@ export default {
         })
       }
     },
+    // public methods
     refresh() {
       this.scroll && this.scroll.refresh() // call refresh() of the plugin
+    },
+    scrollTo() { // 滚动到指定的位置
+      this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+    },
+    scrollToElement() { // 滚动到指定的目标元素。
+      this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
     }
   },
   watch: {
