@@ -1,11 +1,8 @@
 <template>
-    <div class="detail">
-      <h1>
-        {{ singer.name }}
-        {{ singer.avatar }}
-      </h1>
+    <transition name="slide">
+      <!-- animated object -->
       <music-list></music-list>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -74,4 +71,9 @@ export default {
     bottom: 0
     left: 0
     background-color: #222
+    /* keyframes */
+  .slide-enter-active, slide-leave-active
+    transition: all .3s
+  .slide-enter, .slide-leave-to
+    transform: translate3d(100%, 0, 0)
 </style>

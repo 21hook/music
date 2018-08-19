@@ -1,18 +1,20 @@
 <template>
-    <div class="slide">
-      {{ disc.dissname }}
-      {{ disc.imgurl }}
-    </div>
+  <transition name="slide">
+    <!-- context: dynamic components; the animated object -->
+    <music-list></music-list>
+  </transition>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
+import MusicList from 'components/music-list/MusicList'
 import {getSongList} from 'api/recommend'
 import {createSong, processSongsUrl} from 'common/song'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Disc',
+  components: {MusicList},
   data() {
     return {
       songs: []
@@ -47,11 +49,11 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .slide
-    position: fixed
-    top: 0
-    right: 0
-    bottom: 0
-    left: 0
-    background-color: #222
+    /* keyframes */
+    /* enter & leave phrase */
+  .slide-enter-active, slide-leave-active
+    transition: all .3s
+    /* enter & leave point */
+  .slide-enter, .slide-leave-to
+    transform: translate3d(100%, 0, 0)
 </style>

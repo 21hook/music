@@ -1,6 +1,6 @@
 <template>
   <div class="music-list">
-    <div class="back">
+    <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
     <h1 class="title"></h1>
@@ -44,6 +44,11 @@ export default {
   data() {
     return {
 
+    }
+  },
+  methods: {
+    back() {
+      this.$router.back()
     }
   }
 }

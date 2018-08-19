@@ -1,16 +1,20 @@
 <template>
-  <div class="top-list">
-  </div>
+  <transition name="slide">
+      <!-- animated object -->
+      <music-list></music-list>
+    </transition>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
+import MusicList from 'components/music-list/MusicList'
 import {getMusicList} from 'api/rank'
 import {createSong, processSongsUrl} from 'common/song'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'TopList',
+  components: {MusicList},
   data() {
     return {
       songs: {}
@@ -58,4 +62,9 @@ export default {
     bottom: 0
     right: 0
     background-color: #222
+    /* keyframes */
+  .slide-enter-active, slide-leave-active
+    transition: all .3s
+  .slide-enter, .slide-leave-to
+    transform: translate3d(100%, 0, 0)
 </style>
