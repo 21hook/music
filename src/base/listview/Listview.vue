@@ -1,5 +1,5 @@
 <template>
-  <scroll class="listview">
+  <scroll class="listview" ref="listview" data="[]">
     <ul>
       <li v-for="(group, i) in data" :key="i" class="list-group">
         <h2 class="list-group-title">{{ group.title }}</h2>
@@ -31,7 +31,7 @@ import Scroll from 'base/scroll/Scroll'
 import Loading from 'base/loading/Loading'
 
 export default {
-  name: 'ListView',
+  name: 'Listview',
   components: {
     Scroll,
     Loading

@@ -1,6 +1,6 @@
 <template>
     <div ref="wrapper">
-      <!-- default slot -->
+      <!-- default slot; the first child component to be scrolled -->
       <slot></slot>
     </div>
 </template>
@@ -83,7 +83,11 @@ export default {
     }
   },
   watch: {
-    data() { // receive data
+    /*
+      watch data => template re-render => refresh
+      watch data to recalculate the height of the content element
+     */
+    data() {
       setTimeout(() => {
         this.refresh()
       }, this.refreshDelay)

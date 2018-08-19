@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <!-- context: dynamic components; the animated object -->
+    <!-- context: dynamic components; must be the root element of it -->
     <music-list></music-list>
   </transition>
 </template>
@@ -49,11 +49,8 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-    /* keyframes */
-    /* enter & leave phrase */
   .slide-enter-active, slide-leave-active
     transition: all .3s
-    /* enter & leave point */
   .slide-enter, .slide-leave-to
     transform: translate3d(100%, 0, 0)
 </style>

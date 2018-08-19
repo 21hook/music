@@ -55,14 +55,6 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .top-list
-    position: fixed
-    top: 0
-    left: 0
-    bottom: 0
-    right: 0
-    background-color: #222
-    /* keyframes */
   .slide-enter-active, slide-leave-active
     transition: all .3s
   .slide-enter, .slide-leave-to
