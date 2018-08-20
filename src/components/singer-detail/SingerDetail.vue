@@ -1,7 +1,7 @@
 <template>
     <transition name="slide">
       <!-- animated object -->
-      <music-list></music-list>
+      <music-list :songs="songs" :title="singer.name" :bg-image="singer.avatar"></music-list>
     </transition>
 </template>
 

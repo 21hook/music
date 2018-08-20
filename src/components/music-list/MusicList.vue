@@ -3,8 +3,8 @@
     <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
-    <h1 class="title"></h1>
-    <div class="bg-image">
+    <h1 class="title" v-html="title"></h1>
+    <div class="bg-image" :style="bgStyle">
       <div class="play-wrapper">
         <div class="play">
           <i class="icon-play"></i>
@@ -13,18 +13,32 @@
       </div>
       <div class="filter"></div>
     </div>
-    <div class="song-list-wrapper">
-      <song-list></song-list>
-    </div>
+    <div class="bg-layer" ref="layer"></div> <!--背景层（歌曲列表向上滚动时跟着生成的蒙板层）-->
+    <scroll :data="songs">
+      <div class="song-list-wrapper">
+        <div class="song-list-wrapper">
+          <song-list :songs="songs"></song-list>
+        </div>
+        <div class="loading-container" v-show="!songs.length">
+          <loading></loading>
+        </div>
+      </div>
+    </scroll>
   </div>
 </template>
 
 <script>
 import SongList from 'base/song-list/SongList'
+import Scroll from 'base/scroll/Scroll'
+import Loading from 'base/loading/Loading'
 
 export default {
   name: 'MusicList',
-  components: {SongList},
+  components: {
+    SongList,
+    Scroll,
+    Loading
+  },
   props: {
     songs: {
       type: Array,
@@ -44,6 +58,11 @@ export default {
   data() {
     return {
 
+    }
+  },
+  computed: {
+    bgStyle() {
+      return `background-image: url(${this.bgImage})`
     }
   },
   methods: {

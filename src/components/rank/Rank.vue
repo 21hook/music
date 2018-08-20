@@ -1,18 +1,21 @@
 <template>
   <div class="rank">
-    <ul class="toplist">
-      <li v-for="(item, i) in topList" :key="i" class="item" @click="selectItem(item)">
-        <div class="icon">
-          <img v-lazy="item.picUrl" width="100" height="100">
-        </div>
-        <ul class="songlist">
-          <li v-for="(song, i) in item.songList" :key="i" class="song">
-            <span>{{i + 1}}</span>
-            <span>{{song.songname}}-{{song.singername}}</span>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <scroll class="toplist" :data="topList" >
+      <!-- the element to be scrolled -->
+      <ul class="toplist">
+        <li v-for="(item, i) in topList" :key="i" class="item" @click="selectItem(item)">
+          <div class="icon">
+            <img v-lazy="item.picUrl" width="100" height="100">
+          </div>
+          <ul class="songlist">
+            <li v-for="(song, i) in item.songList" :key="i" class="song">
+              <span>{{i + 1}}</span>
+              <span>{{song.songname}}-{{song.singername}}</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </scroll>
     <!-- child component outlet; render it here -->
     <router-view></router-view>
   </div>
@@ -20,11 +23,13 @@
 
 <script>
 import {mapMutations} from 'vuex'
+import Scroll from 'base/scroll/Scroll'
 import {getTopList} from 'api/rank'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Rank',
+  components: {Scroll},
   data() {
     return {
       topList: []
