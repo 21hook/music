@@ -24,7 +24,7 @@
         </scroll>
       </div>
       <div class="no-result-wrapper">
-        no results
+        <no-result :title="noResultDesc"></no-result>
       </div>
     </div>
   </transition>
@@ -33,12 +33,14 @@
 <script>
 import Switches from 'base/switches/Switches'
 import Scroll from 'base/scroll/Scroll'
+import NoResult from 'base/no-result/NoResult'
 
 export default {
   name: 'UserCenter',
   components: {
     Switches,
-    Scroll
+    Scroll,
+    NoResult
   },
   data() {
     return {
@@ -53,14 +55,24 @@ export default {
       currentIndex: 0
     }
   },
+  computed: {
+    // getters for this object
+    noResultDesc() {
+      if (this.currentIndex === 0) {
+        return '暂无收藏歌曲'
+      } else {
+        return '你还没有听过歌曲'
+      }
+    }
+  },
   methods: {
     // event handlers
-    // mouse event handers
+    // mouse event handlers
     back() {
       // remove the dynamic component, & reverse the transition
       this.$router.back()
     },
-    // switch event handers
+    // switch event handlers
     switchItem(index) {
       this.currentIndex = index
     }

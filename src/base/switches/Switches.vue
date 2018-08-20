@@ -28,7 +28,7 @@ export default {
       // event handlers
       // mouse event handlers
       switchItem(index) {
-        this.emit('switch', index)
+        this.$emit('switch', index)
       }
     }
   }

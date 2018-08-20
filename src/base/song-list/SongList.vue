@@ -3,7 +3,8 @@
       <ul>
         <li v-for="(song, i) in songs"
             :key="i"
-            class="item">
+            class="item"
+            @click="selectItem(song, i)">
           <div class="rank" v-show="rank">
             <span :class="getRankCls(i)" v-text="getRankText(i)"></span>
           </div>
@@ -49,6 +50,11 @@ export default {
     },
     getDesc(song) {
       return `${song.singer}.${song.album}`
+    },
+    // event handlers
+    // mouse event handlers
+    selectItem(item, index) {
+      this.$emit('select', item, index)
     }
   }
 

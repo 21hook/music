@@ -21,7 +21,7 @@
             :listen-scroll="true"
             @scroll="scroll">
       <div class="song-list-wrapper">
-        <song-list :songs="songs" :rank="rank"></song-list>
+        <song-list :songs="songs" :rank="rank" @select="selectItem"></song-list>
       </div>
       <div class="loading-container" v-show="!songs.length">
         <loading></loading>
@@ -94,6 +94,10 @@ export default {
     // scroll event handlers
     scroll(pos) {
       this.scrollY = pos.y
+    },
+    // song list event handlers
+    selectItem(item, index) {
+
     }
   },
   watch: {
