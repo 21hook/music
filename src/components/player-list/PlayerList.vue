@@ -38,18 +38,24 @@
         <span>关闭</span>
       </div>
     </div>
-    confirm
-    add songs
+      <confirm></confirm>
+      <add-song></add-song>
   </div>
   </transition>
 </template>
 
 <script>
 import Scroll from 'base/scroll/Scroll'
+import Confirm from 'base/confirm/Confirm'
+import AddSong from 'components/add-song/AddSong'
 
 export default {
   name: 'PlayerList',
-  components: {Scroll}
+  components: {
+    Scroll,
+    Confirm,
+    AddSong
+  }
 }
 </script>
 
