@@ -17,3 +17,17 @@ export const playlistMixin = {
     }
   }
 }
+
+// combine the mixin opt into a component opt # composition
+export const searchMixin = {
+  data() {
+    return {
+      query: ''
+    }
+  },
+  methods: {
+    onQueryChange(query) {
+      this.query = query
+    }
+  }
+}

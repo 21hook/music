@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search-box-wrapper">
-      <input type="text" @change="onSearch">
+      <search-box @query="onQueryChange"></search-box>
     </div>
     <div class="shortcut-wrapper">
       <scroll class="shortcut">
@@ -16,10 +16,10 @@
           </div>
           <div class="search-history">
             <h1 class="title">
-              <span>搜索历史</span>
+              <span class="text">搜索历史</span>
               <span class="clear">
-              <i class="icon-clear"></i>
-            </span>
+                <i class="icon-clear"></i>
+              </span>
             </h1>
             search-list
           </div>
@@ -27,7 +27,7 @@
       </scroll>
     </div>
     <div class="search-result">
-      <suggest :query="query"></suggest>
+      <suggest :query="query" ></suggest>
     </div>
     <!-- child component outlet; render it here -->
     <router-view></router-view>
@@ -36,16 +36,21 @@
 
 <script>
 import Scroll from 'base/scroll/Scroll'
+import SearchBox from 'base/search-box/SearchBox'
 import Suggest from 'components/suggest/Suggest'
 import {getHotKey} from 'api/search'
 import {ERR_OK} from 'api/config'
+import {searchMixin} from 'common/mixin'
 
 export default {
   name: 'Search',
   components: {
     Scroll,
+    SearchBox,
     Suggest
   },
+  // combine the mixin opt into the component opt
+  mixins: [searchMixin],
   data() {
     return {
       hotKey: [],

@@ -1,17 +1,24 @@
 <template>
-  <ul class="suggest-list">
-    <li class="suggest-item">
-      <div class="icon">
-        <i></i>
-      </div>
-      <div class="name">
-        <p class="text">some suggestions</p>
-      </div>
-    </li>
-  </ul>
+  <scroll class="suggest" :data="result">
+    <ul class="suggest-list">
+      <li v-for="(item, i) in result" :key="i" class="suggest-item">
+        <div class="icon">
+          <i :class="getIconCls(item)"></i>
+        </div>
+        <div class="name">
+          <p class="text" v-html="getDisplayName(item)"></p>
+        </div>
+      </li>
+      <loading v-show="hasMore"></loading>
+    </ul>
+    <div v-show="!hasMore && !result.length" class="no-result-wrapper"> <!--边界处理无数据情况-->
+      抱歉，暂无搜索结果
+    </div>
+  </scroll>
 </template>
 
 <script>
+import Loading from 'base/loading/Loading'
 import {search} from 'api/search'
 import {ERR_OK} from 'api/config'
 import {createSong, processSongsUrl} from 'common/song'
@@ -21,6 +28,7 @@ const perpage = 20
 
 export default {
   name: 'Suggest',
+  components: {Loading},
   props: {
     query: {
       type: String,
@@ -41,7 +49,7 @@ export default {
     }
   },
   methods: {
-    // private mehtods
+    // private methods
     _search() {
       this.page = 1
       this.hasMore = true
@@ -77,6 +85,21 @@ export default {
       const song = data.song
       if (!song.list.length || (song.curnum + song.curpage * perpage) > song.totalnum) {
         this.hasMore = false
+      }
+    },
+    // public methods
+    getIconCls(item) { // 搜索结果列表前小图标类型判断（歌手或歌曲）
+      if (item.type === TYPE_SINGER) { // 判断搜索出来的数据类型是不是歌手
+        return 'icon-mine'
+      } else {
+        return 'icon-music'
+      }
+    },
+    getDisplayName(item) { // 搜索结果列表name处理
+      if (item.type === TYPE_SINGER) {
+        return item.singername
+      } else {
+        return `${item.name}-${item.singer}`
       }
     }
   },
