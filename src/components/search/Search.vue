@@ -24,7 +24,7 @@
                 <i class="icon-clear"></i>
               </span>
             </h1>
-            search-list
+            <search-list></search-list>
           </div>
         </div>
       </scroll>
@@ -41,6 +41,7 @@
 import Scroll from 'base/scroll/Scroll'
 import SearchBox from 'base/search-box/SearchBox'
 import Suggest from 'components/suggest/Suggest'
+import SearchList from 'base/search-list/SearchList'
 import {getHotKey} from 'api/search'
 import {ERR_OK} from 'api/config'
 import {searchMixin} from 'common/mixin'
@@ -50,7 +51,8 @@ export default {
   components: {
     Scroll,
     SearchBox,
-    Suggest
+    Suggest,
+    SearchList
   },
   // combine the mixin opt into the component opt
   mixins: [searchMixin],
