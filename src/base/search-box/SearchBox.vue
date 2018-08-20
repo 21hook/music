@@ -1,10 +1,9 @@
 <template>
   <div class="search-box">
-    <i class="icon-search">
-      <!-- sync this.query when the change event occurs, rather than the input event -->
-      <input v-model.lazy="query" class="box" :placeholder="placeholder">
-      <i v-show="query" class="icon-dismiss" @click="clear"></i>
-    </i>
+    <i class="icon-search"></i>
+    <!-- sync this.query when the change event occurs, rather than the input event -->
+    <input v-model.lazy="query" class="box" :placeholder="placeholder">
+    <i v-show="query" class="icon-dismiss" @click="clear"></i>
   </div>
 </template>
 

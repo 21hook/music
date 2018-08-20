@@ -1,5 +1,9 @@
 <template>
-  <scroll class="suggest" :data="result">
+  <scroll class="suggest"
+          :data="result"
+          :pullup="true"
+          :beforeScroll="true"
+          @scrollToEnd="searchMore">
     <ul class="suggest-list">
       <li v-for="(item, i) in result" :key="i" class="suggest-item">
         <div class="icon">
@@ -105,6 +109,20 @@ export default {
       } else {
         return `${item.name}-${item.singer}`
       }
+    },
+    // event handlers
+    // scroll event handlers
+    searchMore() { // 滚动到底部，搜索加载更多数据
+      if (!this.hasMore) {
+        return
+      }
+      this.page++
+      search(this.query, this.page, this.showSinger, perpage).then((res) => {
+        if (res.code === ERR_OK) {
+          this.result = this.result.concat(this._genResult(res.data))
+          this._checkMore(res.data)
+        }
+      })
     }
   },
   watch: {
