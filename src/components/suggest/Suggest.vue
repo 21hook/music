@@ -16,7 +16,7 @@
       <loading v-show="hasMore"></loading>
     </ul>
     <div v-show="!hasMore && !result.length" class="no-result-wrapper"> <!--边界处理无数据情况-->
-      抱歉，暂无搜索结果
+      <no-result title="抱歉，暂无搜索结果"></no-result>
     </div>
   </scroll>
 </template>
@@ -24,6 +24,7 @@
 <script>
 import Scroll from 'base/scroll/Scroll'
 import Loading from 'base/loading/Loading'
+import NoResult from 'base/no-result/NoResult'
 import {search} from 'api/search'
 import {ERR_OK} from 'api/config'
 import {createSong, processSongsUrl} from 'common/song'
@@ -35,7 +36,8 @@ export default {
   name: 'Suggest',
   components: {
     Loading,
-    Scroll
+    Scroll,
+    NoResult
   },
   props: {
     query: {
