@@ -1,7 +1,7 @@
 <template>
   <transition name="slide">
     <!-- context: dynamic components; must be the root element of it -->
-    <music-list></music-list>
+    <music-list :songs="songs" :title="disc.dissname" :bg-image="disc.imgurl"></music-list>
   </transition>
 </template>
 
