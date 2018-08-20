@@ -3,7 +3,7 @@
     <i class="icon-search">
       <!-- sync this.query when the change event occurs, rather than the input event -->
       <input v-model.lazy="query" class="box" :placeholder="placeholder">
-      <i class="icon-dismiss"></i>
+      <i v-show="query" class="icon-dismiss" @click="clear"></i>
     </i>
   </div>
 </template>
@@ -23,6 +23,11 @@ export default {
     }
   },
   methods: {
+    // event handlers
+    // mouse event handlers
+    clear() {
+      this.query = ''
+    }
   },
   watch: {
     query(newQuery) {
