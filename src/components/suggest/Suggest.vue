@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import Scroll from 'base/scroll/Scroll'
 import Loading from 'base/loading/Loading'
 import {search} from 'api/search'
 import {ERR_OK} from 'api/config'
@@ -28,7 +29,10 @@ const perpage = 20
 
 export default {
   name: 'Suggest',
-  components: {Loading},
+  components: {
+    Loading,
+    Scroll
+  },
   props: {
     query: {
       type: String,

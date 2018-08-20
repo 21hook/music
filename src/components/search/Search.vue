@@ -1,15 +1,18 @@
 <template>
   <div class="search">
     <div class="search-box-wrapper">
-      <search-box @query="onQueryChange"></search-box>
+      <search-box ref="searchBox" @query="onQueryChange"></search-box>
     </div>
-    <div class="shortcut-wrapper">
+    <div v-show="!query" class="shortcut-wrapper">
       <scroll class="shortcut">
         <div>
           <div class="hot-key">
             <h1 class="title">热门搜索</h1>
             <ul>
-              <li v-for="(item, i) in hotKey" :key="i" class="item">
+              <li v-for="(item, i) in hotKey"
+                  :key="i"
+                  class="item"
+                  @click="addQuery(item.k)">
                 <span>{{item.k}}</span>
               </li>
             </ul>
@@ -26,7 +29,7 @@
         </div>
       </scroll>
     </div>
-    <div class="search-result">
+    <div v-show="query" class="search-result">
       <suggest :query="query" ></suggest>
     </div>
     <!-- child component outlet; render it here -->
@@ -68,11 +71,6 @@ export default {
           this.hotKey = res.data.hotkey.slice(0, 10)
         }
       })
-    },
-    // event handler
-    onSearch(e) {
-      console.log(e)
-      this.query = e.target.value
     }
   }
 }

@@ -28,6 +28,9 @@ export const searchMixin = {
   methods: {
     onQueryChange(query) {
       this.query = query
+    },
+    addQuery(query) {
+      this.$refs.searchBox.setQuery(query)
     }
   }
 }

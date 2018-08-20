@@ -23,6 +23,10 @@ export default {
     }
   },
   methods: {
+    // public methods
+    setQuery(query) {
+      this.query = query
+    },
     // event handlers
     // mouse event handlers
     clear() {
