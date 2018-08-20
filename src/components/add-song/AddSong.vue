@@ -11,14 +11,18 @@
         <search-box placeholder="搜索歌曲"></search-box>
       </div>
       <div class="shortcut">
+        <switches></switches>
         <div class="list-wrapper">
-
+          <scroll class="list-scroll">
             <div class="list-inner">
+              play recently
             </div>
-
+          </scroll>
+          <scroll class="list-scroll">
             <div class="list-inner">
+              search list
             </div>
-
+          </scroll>
         </div>
       </div>
       <div class="search-result">
@@ -33,8 +37,15 @@
 </template>
 
 <script>
+import Scroll from 'base/scroll/Scroll'
+import Switches from 'base/switches/Switches'
+
 export default {
-  name: 'AddSong'
+  name: 'AddSong',
+  components: {
+    Scroll,
+    Switches
+  }
 }
 </script>
 

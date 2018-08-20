@@ -1,70 +1,108 @@
 <template>
   <div class="player">
-    <div class="normal-player">
-      <div class="normal-player"></div>
-      <div class="background">
-        <img width="100%" height="100%">
-      </div>
-      <div class="top">
-        <div class="back">
-          <i class="icon-back">
-          </i>
+    <transition name="normal">
+      <div class="normal-player">
+        <div class="background">
+          <img width="100%" height="100%">
         </div>
-        <h1 class="title"></h1>
-        <h2 class="subtitle"></h2>
-      </div>
-      <div class="middle">
-        <div class="middle-l">
-          <div class="cd-wrapper">
-            <div class="cd">
-              <img src="" alt="" class="image">
+        <div class="top">
+          <div class="back">
+            <i class="icon-back">
+            </i>
+          </div>
+          <h1 class="title"></h1>
+          <h2 class="subtitle"></h2>
+        </div>
+        <div class="middle">
+          <div class="middle-l">
+            <div class="cd-wrapper">
+              <div class="cd">
+                <img src="" alt="" class="image">
+              </div>
+            </div>
+            <div class="playing-lyric-wrapper">
+              <div class="playing-lyric"></div>
             </div>
           </div>
-          <div class="playing-lyric-wrapper">
-            <div class="playing-lyric"></div>
+          <scroll class="middle-r">
+            <div class="lyric-wrapper">
+              <p class="text"></p>
+            </div>
+          </scroll>
+        </div>
+        <div class="bottom">
+          <div class="dot-wrapper">
+            <span class="dot"></span>
+            <span class="dot"></span>
           </div>
-        </div>
-        <div class="lyric-wrapper">
-          <p class="text"></p>
-        </div>
-      </div>
-      <div class="bottom">
-        <div class="dot-wrapper">
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <div class="progress-wrapper">
-          <span class="time time-l"></span>
-          <div class="progress-bar-wrapper">
+          <div class="progress-wrapper">
+            <span class="time time-l"></span>
+            <div class="progress-bar-wrapper">
 
+            </div>
+            <span class="time time-r"></span>
           </div>
-          <span class="time time-r"></span>
-        </div>
-        <div class="operators">
-          <div class="icon i-left"><!--播放模式-->
-            <i></i>
-          </div>
-          <div class="icon i-left"><!--上一首-->
-            <i class="icon-prev"></i>
-          </div>
-          <div class="icon i-center"><!--播放、暂停切换-->
-            <i></i>
-          </div>
-          <div class="icon i-right"><!--下一首-->
-            <i class="icon-next"></i>
-          </div>
-          <div class="icon i-right"><!--收藏-->
-            <i class="icon"></i>
+          <div class="operators">
+            <div class="icon i-left"><!--播放模式-->
+              <i></i>
+            </div>
+            <div class="icon i-left"><!--上一首-->
+              <i class="icon-prev"></i>
+            </div>
+            <div class="icon i-center"><!--播放、暂停切换-->
+              <i></i>
+            </div>
+            <div class="icon i-right"><!--下一首-->
+              <i class="icon-next"></i>
+            </div>
+            <div class="icon i-right"><!--收藏-->
+              <i class="icon"></i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
+    <transition name="mini">
+      <div class="mini-player">
+        <div class="icon">
+          <img src="" alt="" width="40" height="40">
+        </div>
+        <div class="text">
+          <h2 class="name"></h2>
+          <p class="desc"></p>
+        </div>
+        <div class="control">
+          play, resume components
+          <i class="icon-mini"></i> <!--@click.stop 阻止冒泡-->
+        </div>
+        <div class="control">
+          <i class="icon-playlist"></i>
+        </div>
+      </div>
+    </transition>
+    <player-list></player-list>
+    <audio src=""></audio>
   </div>
 </template>
 
 <script>
+import Scroll from 'base/scroll/Scroll'
+import PlayerList from 'components/player-list/PlayerList'
+
 export default {
-  name: 'Player'
+  name: 'Player',
+  components: {
+    Scroll,
+    PlayerList
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
 }
 </script>
 

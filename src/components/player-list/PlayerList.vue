@@ -1,29 +1,33 @@
 <template>
-  <div class="playlist">
+  <transition name="list-fade">
+    <div class="playlist">
     <div class="list-wrapper">
       <div class="list-header">
         <h1 class="title">
           <i class="icon">
               <span class="text">
               </span>
-            <span class="clear">
+              <span class="clear">
+                <i class="icon-clear"></i>
               </span>
           </i>
         </h1>
       </div>
-      <ul>
-        <li class="item">
-          <i class="current"></i>
-          <span class="text"></span>
-          <span class="like">
+      <scroll class="list-content">
+        <transition-group tag="ul" name="list">
+          <li class="item">
+            <i class="current"></i>
+            <span class="text"></span>
+            <span class="like">
                 like
               </span>
-          <span class="delete">
+            <span class="delete">
                 delete
                 <i class="icon-delete"></i>
               </span>
-        </li>
-      </ul>
+          </li>
+        </transition-group>
+      </scroll>
       <div class="list-operate">
         <div class="add">
           <i class="icon-add"></i>
@@ -34,12 +38,18 @@
         <span>关闭</span>
       </div>
     </div>
+    confirm
+    add songs
   </div>
+  </transition>
 </template>
 
 <script>
+import Scroll from 'base/scroll/Scroll'
+
 export default {
-  name: 'PlayerList'
+  name: 'PlayerList',
+  components: {Scroll}
 }
 </script>
 
