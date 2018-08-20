@@ -1,7 +1,11 @@
 <template>
   <transition name="slide">
       <!-- animated object -->
-      <music-list></music-list>
+      <music-list :rank="rank"
+                  :title="title"
+                  :bg-image="bgImage"
+                  :songs="songs">
+      </music-list>
     </transition>
 </template>
 
@@ -17,16 +21,30 @@ export default {
   components: {MusicList},
   data() {
     return {
-      songs: {}
+      songs: [],
+      rank: true
     }
   },
   created() {
     this._getMusicList()
   },
   computed: {
+    // the component object accessors/getters
+    title() {
+      // access a component object of the type
+      // return a new object of a different type
+      return this.topList.topTitle
+    },
+    bgImage() {
+      if (this.songs.length) {
+        return this.songs[0].image
+      }
+      return ''
+    },
     ...mapGetters(['topList'])
   },
   methods: {
+    // private methods
     _getMusicList() {
       if (!this.topList.id) {
         this.$router.push('/rank')
@@ -49,7 +67,6 @@ export default {
       })
       return ret
     }
-
   }
 }
 </script>
