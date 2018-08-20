@@ -1,31 +1,70 @@
 <template>
-  <transition class="slide">
+  <transition name="slide">
     <div class="user-center">
-      <div class="back">
+      <div class="back" @click="back">
         <i class="icon-back"></i>
       </div>
-      <div class="switcher-wrapper">
-
+      <div class="switches-wrapper">
+        <switches :switches="switches" :currentIndex="currentIndex" @switch="switchItem"></switches>
       </div>
       <div class="play-btn">
         <i class="icon-play"></i>
         <span class="text">随机播放全部</span>
       </div>
       <div class="list-wrapper">
-        <div class="list-inner">
-          favorite list
-        </div>
-        <div class="list-inner">
-          recently listen
-        </div>
+        <scroll class="list-scroll">
+          <div class="list-inner">
+            <song-list></song-list>
+          </div>
+        </scroll>
+        <scroll class="list-scroll">
+          <div class="list-inner">
+            <song-list></song-list>
+          </div>
+        </scroll>
+      </div>
+      <div class="no-result-wrapper">
+        no results
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import Switches from 'base/switches/Switches'
+import Scroll from 'base/scroll/Scroll'
+
 export default {
-  name: 'UserCenter'
+  name: 'UserCenter',
+  components: {
+    Switches,
+    Scroll
+  },
+  data() {
+    return {
+      switches: [
+        {
+          name: '我喜欢的'
+        },
+        {
+          name: '最近听的'
+        }
+      ],
+      currentIndex: 0
+    }
+  },
+  methods: {
+    // event handlers
+    // mouse event handers
+    back() {
+      // remove the dynamic component, & reverse the transition
+      this.$router.back()
+    },
+    // switch event handers
+    switchItem(index) {
+      this.currentIndex = index
+    }
+  }
 }
 </script>
 
