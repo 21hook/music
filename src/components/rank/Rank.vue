@@ -1,8 +1,8 @@
 <template>
   <div class="rank">
-    <scroll class="toplist" :data="topList" >
+    <scroll class="toplist" :data="topList">
       <!-- the element to be scrolled -->
-      <ul class="toplist">
+      <ul>
         <li v-for="(item, i) in topList" :key="i" class="item" @click="selectItem(item)">
           <div class="icon">
             <img v-lazy="item.picUrl" width="100" height="100">
@@ -14,6 +14,9 @@
             </li>
           </ul>
         </li>
+        <div class="loading-container" v-show="!topList.length">
+          <loading></loading>
+        </div>
       </ul>
     </scroll>
     <!-- child component outlet; render it here -->
@@ -23,13 +26,17 @@
 
 <script>
 import {mapMutations} from 'vuex'
+import Loading from 'base/loading/Loading'
 import Scroll from 'base/scroll/Scroll'
 import {getTopList} from 'api/rank'
 import {ERR_OK} from 'api/config'
 
 export default {
   name: 'Rank',
-  components: {Scroll},
+  components: {
+    Scroll,
+    Loading
+  },
   data() {
     return {
       topList: []
