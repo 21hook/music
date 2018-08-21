@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import Scroll from 'base/scroll/Scroll'
 import PlayerList from 'components/player-list/PlayerList'
 
@@ -99,6 +100,9 @@ export default {
     return {
       fullScreen: true
     }
+  },
+  computed: {
+    ...mapGetters(['playList'])
   },
   methods: {
     // event handlers

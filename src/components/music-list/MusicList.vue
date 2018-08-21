@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 import SongList from 'base/song-list/SongList'
 import Scroll from 'base/scroll/Scroll'
 import Loading from 'base/loading/Loading'
@@ -83,7 +84,13 @@ export default {
       // receive/access an object of the type
       // return a new object of different type
       return `background-image: url(${this.bgImage})`
-    }
+    },
+    ...mapGetters([
+      'playList',
+      'sequenceList',
+      'currentSong',
+      'mode'
+    ])
   },
   methods: {
     // event handlers
@@ -97,8 +104,12 @@ export default {
     },
     // song list event handlers
     selectItem(item, index) {
-
-    }
+      this.selectPlay({
+        list: this.songs,
+        index
+      })
+    },
+    ...mapActions(['selectPlay'])
   },
   watch: {
     scrollY(newVal) { // 通过监听scrollY的值变化
