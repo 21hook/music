@@ -1,6 +1,6 @@
 <template>
   <transition name="list-fade">
-    <div class="playlist">
+    <div class="playlist" v-show="showFlag">
     <div class="list-wrapper">
       <div class="list-header">
         <h1 class="title">
@@ -29,17 +29,17 @@
         </transition-group>
       </scroll>
       <div class="list-operate">
-        <div class="add">
+        <div class="add" @click="addSong">
           <i class="icon-add"></i>
           <span class="text">添加歌曲到队列</span>
         </div>
       </div>
-      <div class="list-close">
+      <div class="list-close" @click="hide">
         <span>关闭</span>
       </div>
     </div>
       <confirm></confirm>
-      <add-song></add-song>
+      <add-song ref="addSong"></add-song>
   </div>
   </transition>
 </template>
@@ -55,6 +55,25 @@ export default {
     Scroll,
     Confirm,
     AddSong
+  },
+  data() {
+    return {
+      showFlag: true
+    }
+  },
+  methods: {
+    // public methods
+    show() {
+      this.showFlag = true
+    },
+    // event handlers
+    // mouse event handlers
+    addSong() {
+      this.$refs.addSong.show()
+    },
+    hide() {
+      this.showFlag = false
+    }
   }
 }
 </script>

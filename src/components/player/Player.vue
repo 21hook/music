@@ -75,12 +75,12 @@
           play, resume components
           <i class="icon-mini"></i> <!--@click.stop 阻止冒泡-->
         </div>
-        <div class="control">
+        <div class="control" @click.stop="showPlaylist">
           <i class="icon-playlist"></i>
         </div>
       </div>
     </transition>
-    <player-list></player-list>
+    <player-list ref="playlist"></player-list>
     <audio src=""></audio>
   </div>
 </template>
@@ -101,6 +101,11 @@ export default {
     }
   },
   methods: {
+    // event handlers
+    // mouse event handlers
+    showPlaylist() {
+      this.$refs.playlist.show()
+    }
 
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <transition name="slide">
-    <div class="add-song">
+    <div class="add-song" v-show="showFlag">
       <div class="header">
         <h1 class="title">添加歌曲到列表</h1>
-        <div class="close">
+        <div class="close" @click="hide">
           <i class="icon-close"></i>
         </div>
       </div>
@@ -45,6 +45,23 @@ export default {
   components: {
     Scroll,
     Switches
+  },
+  data() {
+    return {
+      showFlag: true
+    }
+  },
+  methods: {
+    // public methods
+    show() {
+      this.showFlag = true
+    },
+    // event handlers
+    // mouse event handlers
+    hide() {
+      // conditional display to trigger the reversed transition
+      this.showFlag = false
+    }
   }
 }
 </script>
