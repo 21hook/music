@@ -23,13 +23,13 @@ export default {
     currentIndex: {
       type: Number,
       default: 0
-    },
-    methods: {
-      // event handlers
-      // mouse event handlers
-      switchItem(index) {
-        this.$emit('switch', index)
-      }
+    }
+  },
+  methods: {
+    // event handlers
+    // mouse event handlers
+    switchItem(index) {
+      this.$emit('switch', index)
     }
   }
 }
