@@ -1,7 +1,13 @@
+import {playMode} from 'common/config'
+
 const state = {
   singer: {},
   disc: {},
-  topList: {}
+  topList: {},
+  playList: [],
+  sequenceList: [],
+  mode: playMode.sequence,
+  currentIndex: -1
 }
 
 export default state
