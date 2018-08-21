@@ -1,12 +1,12 @@
 <template>
   <div class="player">
     <transition name="normal">
-      <div class="normal-player">
+      <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img width="100%" height="100%">
         </div>
         <div class="top">
-          <div class="back">
+          <div class="back" @click="back">
             <i class="icon-back">
             </i>
           </div>
@@ -63,7 +63,7 @@
       </div>
     </transition>
     <transition name="mini">
-      <div class="mini-player">
+      <div v-show="!fullScreen" class="mini-player" @click="open">
         <div class="icon">
           <img src="" alt="" width="40" height="40">
         </div>
@@ -97,7 +97,7 @@ export default {
   },
   data() {
     return {
-
+      fullScreen: true
     }
   },
   methods: {
@@ -105,8 +105,13 @@ export default {
     // mouse event handlers
     showPlaylist() {
       this.$refs.playlist.show()
+    },
+    back() {
+      this.fullScreen = false
+    },
+    open() {
+      this.fullScreen = true
     }
-
   }
 }
 </script>
