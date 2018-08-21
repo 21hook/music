@@ -1,23 +1,23 @@
 <template>
-  <div class="player">
+  <div class="player" v-show="playList.length">
     <transition name="normal">
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
-          <img width="100%" height="100%">
+          <img :src="currentSong.image" width="100%" height="100%">
         </div>
         <div class="top">
           <div class="back" @click="back">
             <i class="icon-back">
             </i>
           </div>
-          <h1 class="title"></h1>
-          <h2 class="subtitle"></h2>
+          <h1 class="title" v-html="currentSong.name"></h1>
+          <h2 class="subtitle" v-html="currentSong.singer"></h2>
         </div>
         <div class="middle">
           <div class="middle-l">
             <div class="cd-wrapper">
-              <div class="cd">
-                <img src="" alt="" class="image">
+              <div class="cd" :class="cdCls">
+                <img :src="currentSong.image" class="image">
               </div>
             </div>
             <div class="playing-lyric-wrapper">
@@ -65,11 +65,11 @@
     <transition name="mini">
       <div v-show="!fullScreen" class="mini-player" @click="open">
         <div class="icon">
-          <img src="" alt="" width="40" height="40">
+          <img :src="currentSong.image" :class="cdCls" width="40" height="40">
         </div>
         <div class="text">
-          <h2 class="name"></h2>
-          <p class="desc"></p>
+          <h2 class="name" v-html="currentSong.name"></h2>
+          <p class="desc" v-html="currentSong.singer"></p>
         </div>
         <div class="control">
           play, resume components
@@ -102,7 +102,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['playList'])
+    // getters for this object
+    cdCls() { // 大小cd样式,用于控制cd是旋转还是不旋转
+      return this.playing ? 'play' : 'play pause'
+    },
+    ...mapGetters([
+      'playList',
+      'currentIndex',
+      'currentSong'
+    ])
   },
   methods: {
     // event handlers
