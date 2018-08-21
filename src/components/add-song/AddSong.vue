@@ -39,12 +39,14 @@
 <script>
 import Scroll from 'base/scroll/Scroll'
 import Switches from 'base/switches/Switches'
+import SearchBox from 'base/search-box/SearchBox'
 
 export default {
   name: 'AddSong',
   components: {
     Scroll,
-    Switches
+    Switches,
+    SearchBox
   },
   data() {
     return {

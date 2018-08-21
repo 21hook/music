@@ -1,6 +1,10 @@
 <template>
   <div class="player" v-show="playList.length">
-    <transition name="normal">
+    <transition name="normal"
+                @enter="enter"
+                @after-enter="afterEnter"
+                @leave="leave"
+                @after-leave="afterLeave">
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img :src="currentSong.image" width="100%" height="100%">
@@ -15,7 +19,7 @@
         </div>
         <div class="middle">
           <div class="middle-l">
-            <div class="cd-wrapper">
+            <div class="cd-wrapper" ref="cdWrapper">
               <div class="cd" :class="cdCls">
                 <img :src="currentSong.image" class="image">
               </div>
@@ -87,8 +91,12 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import animations from 'create-keyframe-animation'
 import Scroll from 'base/scroll/Scroll'
 import PlayerList from 'components/player-list/PlayerList'
+import {prefixStyle} from 'common/dom'
+
+const transform = prefixStyle('transform') // 加前缀
 
 export default {
   name: 'Player',
@@ -113,6 +121,22 @@ export default {
     ])
   },
   methods: {
+    // private methods
+    _getPosAndScale() { // 获取位置和缩放比，用于动画(大小CD过渡)
+      const targetWidth = 40 // 目标宽度, 左下角小圆圈图
+      const paddingLeft = 40 // 左部偏移
+      const paddingBottom = 30 // 底部偏移
+      const paddingTop = 80 // 大CD距离顶部的高度
+      const width = window.innerWidth * 0.8 //  大CD的宽度
+      const scale = targetWidth / width // 缩小比例
+      const x = -(window.innerWidth / 2 - paddingLeft)
+      const y = window.innerHeight - paddingTop - width / 2 - paddingBottom // (这里的Y轴跟我们平时的y轴刚好相反，所以是正数)
+      return {
+        x,
+        y,
+        scale
+      }
+    },
     // event handlers
     // mouse event handlers
     showPlaylist() {
@@ -123,6 +147,46 @@ export default {
     },
     open() {
       this.fullScreen = true
+    },
+    // animations hooks
+    enter(el, done) { // 1、vue为我们提供的钩子函数，用于实现特定动画效果。用js实现css3的动画效果
+      const {x, y, scale} = this._getPosAndScale() // 对象解构赋值
+      let animation = {
+        0: {
+          transform: `translate3d(${x}px,${y}px,0) scale(${scale})`
+        },
+        60: {
+          transform: `translate3d(0,0,0) scale(1.1)` // 放大再缩小
+        },
+        100: {
+          transform: `translate3d(0,0,0) scale(1)`
+        }
+      }
+
+      animations.registerAnimation({ // 注册
+        name: 'move',
+        animation,
+        presets: {
+          duration: 400, // 间隔
+          easing: 'linear' // 线性缓动
+        }
+      })
+
+      animations.runAnimation(this.$refs.cdWrapper, 'move', done) // 运行  done回调函数执行的时候则跳到 afterEnter()
+    },
+    afterEnter() { // 2、vue为我们提供的钩子函数，用于实现特定动画效果
+      animations.unregisterAnimation('move') // 取消注册
+      this.$refs.cdWrapper.style.animation = ''
+    },
+    leave(el, done) { // 3、vue为我们提供的钩子函数，用于实现特定动画效果
+      this.$refs.cdWrapper.style.transition = 'all 0.4s'
+      const {x, y, scale} = this._getPosAndScale()
+      this.$refs.cdWrapper.style[transform] = `translate3d(${x}px,${y}px,0) scale(${scale})`
+      this.$refs.cdWrapper.addEventListener('transitionend', done) // 监听 transitionend事件
+    },
+    afterLeave() { // 4、vue为我们提供的钩子函数，用于实现特定动画效果
+      this.$refs.cdWrapper.style.transition = ''
+      this.$refs.cdWrapper.style[transform] = ''
     }
   }
 }
